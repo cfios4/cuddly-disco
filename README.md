@@ -1,6 +1,6 @@
 ADD NOTES HERE
 
-```
+```bash
 #!/bin/bash
 
 TALOS_NODES(192.168.x.1 192.168.x.2 192.168.x.3 192.168.x.4)
