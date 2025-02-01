@@ -14,7 +14,7 @@ provider "proxmox" {
 }
 
 
-resource "proxmox_vm_qemu" "create-talos" {
+resource "proxmox_virtual_environment_vm" "create-talos" {
   name        = "talos-${var.seq}"
   node_name = "prox"
   
