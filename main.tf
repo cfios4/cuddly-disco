@@ -16,6 +16,6 @@ resource "proxmox_vm_qemu" "create-talos" {
   clone = "talos"
   vm_state = "running"
   
-  ipconfig0 = '[gw=var.gw] [,ip=var.network]'
+//   ipconfig0 = '[gw=var.gw] [,ip=var.network]'
   skip_ipv6 = "true"
 }
