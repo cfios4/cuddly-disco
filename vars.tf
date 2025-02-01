@@ -1,23 +1,15 @@
-variable "pm_api_url" {
+variable "endpoint" {
   type        = string
 }
 
-variable "pm_api_token_id" {
+variable "api_id" {
   type        = string
 }
 
-variable "pm_api_token_secret" {
+variable "api_secret" {
   type        = string
 }
 
 variable "seq" {
   type        = number
-}
-
-variable "network" {
-  type        = string
-}
-
-variable "gw" {
-  type        = string
 }

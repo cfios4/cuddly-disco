@@ -6,9 +6,8 @@ terraform {
   }
 }
 
-
 provider "proxmox" {
-  endpoint = "${var.pm_api_url}"
+  endpoint = "${var.endpoint}"
   api_token = "${var.api_id}=${var.api_secret}"
 
   insecure = true
@@ -22,5 +21,5 @@ resource "proxmox_vm_qemu" "create-talos" {
   clone {
     vm_id = "107"
   }
-  
+
 }
