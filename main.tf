@@ -17,7 +17,4 @@ resource "proxmox_vm_qemu" "create-talos" {
   name        = "talos-${var.seq}"
   target_node = "prox"
   clone = "talos"
-  vm_state = "running"
-  
-  skip_ipv6 = "true"
 }
