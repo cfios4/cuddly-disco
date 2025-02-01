@@ -8,6 +8,9 @@ terraform {
 
 provider "proxmox" {
   pm_tls_insecure = true # By default Proxmox Virtual Environment uses self-signed certificates.
+  pm_api_url = ${var.pm_api_url}
+  pm_api_token_id = ${var.pm_api_token_id}
+  pm_api_token_secret = ${var.pm_api_token_secret}
 }
 
 resource "proxmox_vm_qemu" "create-talos" {
@@ -16,6 +19,5 @@ resource "proxmox_vm_qemu" "create-talos" {
   clone = "talos"
   vm_state = "running"
   
-//   ipconfig0 = '[gw=var.gw] [,ip=var.network]'
   skip_ipv6 = "true"
 }
