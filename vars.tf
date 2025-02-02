@@ -8,8 +8,9 @@ variable "api_id" {
 
 variable "api_secret" {
   type        = string
+  sensitive   = true
 }
 
-variable "seq" {
-  type        = number
+variable "machine_name" {
+  type        = string
 }
