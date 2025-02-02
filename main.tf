@@ -15,7 +15,7 @@ provider "proxmox" {
 
 
 resource "proxmox_virtual_environment_vm" "create-talos" {
-  name        = "talos-${var.seq}"
+  name        = "talos-${var.machine_name}"
   node_name = "prox"
   
   clone {
