@@ -14,7 +14,7 @@ provider "proxmox" {
 }
 
 locals {
-  control_plane_nodes = (var.total_nodes / 2) + 1
+  control_plane_nodes = (var.total_nodes / 2) + (var.total_nodes % 2)
   worker_nodes        = var.total_nodes - local.control_plane_nodes
 }
 
