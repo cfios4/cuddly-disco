@@ -11,6 +11,8 @@ variable "api_secret" {
   sensitive   = true
 }
 
-variable "machine_name" {
-  type        = string
+variable "total_nodes" {
+  description = "Total number of nodes in the cluster"
+  type        = number
+  default     = 4
 }
