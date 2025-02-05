@@ -22,6 +22,10 @@ resource "proxmox_virtual_environment_vm" "control_plane" {
   count = local.control_plane_nodes
   name        = "talos-control-${count.index + 1}"
   node_name = "prox"
+
+  agent {
+    enabled = true
+  }
   
   clone {
     vm_id = "107"
