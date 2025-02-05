@@ -5,7 +5,7 @@ output "control_plane_ips" {
 
 output "worker_ips" {
   description = "IP addresses of the worker nodes"
-  value       = [for i in range(local.worker_nodes) : proxmox_virtual_environment_vm.worker[i].ipv4_addresses]
+  value       = proxmox_virtual_environment_vm.worker[0].ipv4_addresses[1][0]
 }
 
 output "all_node_ips" {
