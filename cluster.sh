@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 
 curl -o /tmp/talosctl -L $(curl -s https://api.github.com/repos/siderolabs/talos/releases/latest | grep "browser_download_url.*linux-amd64" | cut -d '"' -f 4)
 chmod +x /tmp/talosctl
