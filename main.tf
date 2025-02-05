@@ -33,6 +33,10 @@ resource "proxmox_virtual_environment_vm" "worker" {
   count = local.worker_nodes
   name        = "talos-worker-${count.index + 1}"
   node_name = "prox"
+
+  agent {
+    enabled = true
+  }
   
   clone {
     vm_id = "107"
