@@ -1,10 +1,5 @@
 #!/bin/bash
 
-read -p "Space separated list of control plane node IPs: " -a CNODES
-read -p "Space separated list of worker node IPs: " -a WNODES
-
-echo -e "Control Plane: ${CNODES[@]}\nWorker: ${WNODES[@]}"
-
 alias t=talosctl
 curl -sL https://talos.dev/install | sh
 
@@ -24,3 +19,5 @@ until t bootstrap -n ${CNODES[0]} -e ${CNODES[0]} --talosconfig ./talosconfig ; 
 done
 
 t kubeconfig -n ${CNODES[0]} -e ${CNODES[0]} --talosconfig ./talosconfig
+
+# cat ./.kube/config ; echo "----------------------------" ; cat ./talosconfig
