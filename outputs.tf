@@ -1,6 +1,6 @@
 output "control_plane_ips" {
   description = "IP addresses of the control plane nodes"
-  value       = [for i in range(local.control_plane_nodes) : proxmox_virtual_environment_vm.control_plane[i].ipv4_addresses]
+  value       = [for i in range(local.control_plane_nodes) : proxmox_virtual_environment_vm.control_plane[i].ipv4_addresses[*]]
 }
 
 output "worker_ips" {
