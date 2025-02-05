@@ -23,9 +23,9 @@ resource "proxmox_virtual_environment_vm" "control_plane" {
   name        = "talos-control-${count.index + 1}"
   node_name = "prox"
 
-  agent {
-    enabled = true
-  }
+  // agent {
+  //   enabled = true
+  // }
   
   clone {
     vm_id = "107"
@@ -38,9 +38,9 @@ resource "proxmox_virtual_environment_vm" "worker" {
   name        = "talos-worker-${count.index + 1}"
   node_name = "prox"
 
-  agent {
-    enabled = true
-  }
+  // agent {
+  //   enabled = true
+  // }
   
   clone {
     vm_id = "107"
