@@ -39,3 +39,17 @@ resource "proxmox_virtual_environment_vm" "worker" {
   }
 
 }
+
+// provisioner "file" {
+//   source      = "./cluster.sh"
+//   destination = "/tmp/cluster.sh"
+// }
+
+// provisioner "local-exec" {
+//   command = "/bin/bash -c /tmp/cluster.sh"
+
+//   environment = {
+//     CNODES = ${output.control_plane_ips}
+//     WNODES = ${output.worker_ips}
+//   }
+// }
