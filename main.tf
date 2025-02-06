@@ -42,7 +42,7 @@ resource "proxmox_virtual_environment_vm" "control_plane" {
   
   cdrom {
     enabled   = true
-    file_id   = "talos-nocloud-amd64.iso"
+    file_id   = "local:iso/talos-nocloud-amd64.iso"
     interface = "ide2"
   }
 
