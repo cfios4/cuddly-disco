@@ -70,6 +70,7 @@ resource "proxmox_vm_qemu" "control_plane" {
   target_node = "prox"
 
   clone = "talos"
+  agent = 1
 }
 
 resource "proxmox_vm_qemu" "worker" {
@@ -78,4 +79,5 @@ resource "proxmox_vm_qemu" "worker" {
   target_node = "prox"
 
   clone = "talos"
+  agent = 1
 }
