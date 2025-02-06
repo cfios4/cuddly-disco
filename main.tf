@@ -70,7 +70,8 @@ resource "proxmox_vm_qemu" "control_plane" {
   target_node = "prox"
 
   clone_id = "107"
-  // agent = 1
+  agent = 1
+  scsihw = "virtio-scsi-single"
 }
 
 resource "proxmox_vm_qemu" "worker" {
@@ -79,5 +80,6 @@ resource "proxmox_vm_qemu" "worker" {
   target_node = "prox"
 
   clone_id = "107"
-  // agent = 1
+  agent = 1
+  scsihw = "virtio-scsi-single"
 }
