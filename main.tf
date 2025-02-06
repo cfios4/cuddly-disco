@@ -65,16 +65,16 @@ locals {
 // }
 
 resource "proxmox_vm_qemu" "control_plane" {
-  count = local.control_plane_nodes
+  count       = local.control_plane_nodes
   name        = "talos-control-${count.index + 1}"
   target_node = "prox"
 
-  clone = "talos"
+  clone_id = "107"
   agent = 1
 }
 
 resource "proxmox_vm_qemu" "worker" {
-  count = local.worker_nodes
+  count       = local.worker_nodes
   name        = "talos-worker-${count.index + 1}"
   target_node = "prox"
 
