@@ -8,9 +8,10 @@ terraform {
 
 provider "proxmox" {
   pm_api_url  = "${var.endpoint}"
-  api_token = "${var.api_id}=${var.api_secret}"
+  pm_api_token_id = "${var.api_id}"
+  pm_api_token_secret = "${var.api_secret}"
 
-  insecure = true
+  pm_tls_insecure = true
 }
 
 locals {
