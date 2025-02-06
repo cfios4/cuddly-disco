@@ -55,7 +55,7 @@ resource "null_resource" "script" {
     environment = {
       CNODES = join(" ", compact(flatten([for ip in proxmox_virtual_environment_vm.control_plane[*].ipv4_addresses : ip]))) 
       WNODES = join(" ", compact(flatten([for ip in proxmox_virtual_environment_vm.worker[*].ipv4_addresses : ip])))
-      WUSH_AUTH_KEY = ${var.WUSH_AUTH_KEY}
+      WUSH_AUTH_KEY = var.WUSH_AUTH_KEY
     }
   }
 }
