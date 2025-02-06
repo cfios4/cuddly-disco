@@ -58,8 +58,8 @@ resource "null_resource" "script" {
     command = "/bin/bash -c 'chmod +x /tmp/cluster.sh && /tmp/cluster.sh'"
 
     environment = {
-      CNODES = join(" ", terraform.output.control_plane_ips) 
-      WNODES = join(" ", terraform.output.worker_ips)
+      CNODES = join(" ", compact(flatten([for ip in proxmox_virtual_environment_vm.control_plane[*].ipv4_addresses : ip]))) 
+      WNODES = join(" ", compact(flatten([for ip in proxmox_virtual_environment_vm.worker[*].ipv4_addresses : ip])))
     }
   }
 }
