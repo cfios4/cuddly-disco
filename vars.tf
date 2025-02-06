@@ -2,11 +2,11 @@ variable "endpoint" {
   type        = string
 }
 
-variable "api_id" {
+variable "pm_api_token_id" {
   type        = string
 }
 
-variable "api_secret" {
+variable "pm_api_token_secret" {
   type        = string
   sensitive   = true
 }
