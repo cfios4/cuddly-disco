@@ -53,10 +53,9 @@ echo "Outputting Kubeconfig and Talosconfig..."
 /tmp/talosctl kubeconfig -n ${CONTROL[0]} -e ${CONTROL[0]} --talosconfig ./talosconfig
 (cat /tmp/semaphore/.kube/config ; echo "----------------------------" ; cat ./talosconfig) > /tmp/ktconfig
 
-echo "Installing Bitwarden Client for Send..."
-curl -sL "https://vault.bitwarden.com/download/?app=cli&platform=linux" | funzip > /tmp/bw
-chmod +x /tmp/bw
+echo "Installing Wush..."
+curl -sL $(curl -s https://api.github.com/repos/coder/wush/releases/latest | grep "browser_download_url.*linux_amd64.tar.gz" | cut -d '"' -f 4) | tar -xzvf - -C /tmp
+chmod +x /tmp/wush
 
 echo "Waiting to send..."
-/tmp/bw config server "$VAULT_URL"
-/tmp/bw send -f /tmp/ktconfig -d 1 -a 1
+/tmp/wush cp /tmp/ktconfig --auth-key $WUSH_AUTH_KEY
