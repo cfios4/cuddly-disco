@@ -17,10 +17,6 @@ variable "total_nodes" {
   default     = 4
 }
 
-variable "WUSH_AUTH_KEY" {
-  type = string
-}
-
 variable "BW_CLIENT" {
   type = string
 }
