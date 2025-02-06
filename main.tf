@@ -68,7 +68,7 @@ resource "proxmox_vm_qemu" "control_plane" {
   name        = "talos-control-${count.index + 1}"
   target_node = "prox"
 
-  clone_id = 107
+  clone = "talos"
 }
 
 resource "proxmox_vm_qemu" "worker" {
@@ -76,5 +76,5 @@ resource "proxmox_vm_qemu" "worker" {
   name        = "talos-worker-${count.index + 1}"
   target_node = "prox"
 
-  clone_id = 107
+  clone = "talos"
 }
