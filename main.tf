@@ -23,12 +23,32 @@ resource "proxmox_virtual_environment_vm" "control_plane" {
   name        = "talos-control-${count.index + 1}"
   node_name = "prox"
 
+  cpu {
+    cores = 2
+    type = "x86-64-v2-AES"
+  }
+
+  memory {
+    dedicated = 2048
+  }
+
   agent {
     enabled = true
   }
+
+  operating_system {
+    type = "l26"
+  }
   
-  clone {
-    vm_id = "107"
+  cdrom {
+    enabled   = true
+    file_id   = "talos-nocloud-amd64.iso"
+    interface = "ide2"
+  }
+
+  disk {
+    interface = "scsi0"
+    size = 16
   }
 
 }
