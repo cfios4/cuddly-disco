@@ -1,18 +1,16 @@
 terraform {
   required_providers {
     proxmox = {
-      source = "Telmate/proxmox"
-      version = "3.0.1-rc6"
+      source  = "bpg/proxmox"
     }
   }
 }
 
 provider "proxmox" {
-  pm_api_url  = "${var.endpoint}"
-  pm_api_token_id = "${var.pm_api_token_id}"
-  pm_api_token_secret = "${var.pm_api_token_secret}"
+  endpoint = "${var.endpoint}"
+  api_token = "${var.api_id}=${var.api_secret}"
 
-  pm_tls_insecure = true
+  insecure = true
 }
 
 locals {
@@ -20,35 +18,35 @@ locals {
   worker_nodes        = var.total_nodes - local.control_plane_nodes
 }
 
-// resource "proxmox_virtual_environment_vm" "control_plane" {
-//   count = local.control_plane_nodes
-//   name        = "talos-control-${count.index + 1}"
-//   node_name = "prox"
+resource "proxmox_virtual_environment_vm" "control_plane" {
+  count = local.control_plane_nodes
+  name        = "talos-control-${count.index + 1}"
+  node_name = "prox"
 
-//   // agent {
-//   //   enabled = true
-//   // }
+  agent {
+    enabled = true
+  }
   
-//   clone {
-//     vm_id = "107"
-//   }
+  clone {
+    vm_id = "107"
+  }
 
-// }
+}
 
-// resource "proxmox_virtual_environment_vm" "worker" {
-//   count = local.worker_nodes
-//   name        = "talos-worker-${count.index + 1}"
-//   node_name = "prox"
+resource "proxmox_virtual_environment_vm" "worker" {
+  count = local.worker_nodes
+  name        = "talos-worker-${count.index + 1}"
+  node_name = "prox"
 
-//   // agent {
-//   //   enabled = true
-//   // }
+  agent {
+    enabled = true
+  }
   
-//   clone {
-//     vm_id = "107"
-//   }
+  clone {
+    vm_id = "107"
+  }
 
-// }
+}
 
 // provisioner "file" {
 //   source      = "./cluster.sh"
@@ -63,21 +61,3 @@ locals {
 //     WNODES = ${output.worker_ips}
 //   }
 // }
-
-resource "proxmox_vm_qemu" "control_plane" {
-  count       = local.control_plane_nodes
-  name        = "talos-control-${count.index + 1}"
-  target_node = "prox"
-
-  clone_id = "107"
-  agent = 1
-}
-
-resource "proxmox_vm_qemu" "worker" {
-  count       = local.worker_nodes
-  name        = "talos-worker-${count.index + 1}"
-  target_node = "prox"
-
-  clone_id = "107"
-  agent = 1
-}
