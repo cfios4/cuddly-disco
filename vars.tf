@@ -6,7 +6,7 @@ variable "api_id" {
   type        = string
 }
 
-variable "api_token" {
+variable "api_secret" {
   type        = string
   sensitive   = true
 }
