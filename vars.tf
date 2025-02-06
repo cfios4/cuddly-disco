@@ -16,3 +16,7 @@ variable "total_nodes" {
   type        = number
   default     = 4
 }
+
+variable "WUSH_AUTH_KEY" {
+  type = string
+}
