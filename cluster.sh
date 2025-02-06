@@ -1,6 +1,28 @@
 #!/bin/bash
 set -x
 
+# Convert CNODES and WNODES into arrays from space-separated strings
+IFS=' ' read -r -a CNODES <<< "$CNODES"
+IFS=' ' read -r -a WNODES <<< "$WNODES"
+
+# Function to filter out loopback addresses
+filter_loopbacks() {
+  local ip_list=("$@")
+  local filtered_ips=()
+
+  for ip in "${ip_list[@]}"; do
+    if [[ "$ip" != "127.0.0.1" ]]; then
+      filtered_ips+=("$ip")
+    fi
+  done
+
+  echo "${filtered_ips[@]}"
+}
+
+# Filter out loopback IPs from CNODES and WNODES
+CNODES=$(filter_loopbacks "${CNODES[@]}")
+WNODES=$(filter_loopbacks "${WNODES[@]}")
+
 curl -o /tmp/talosctl -L $(curl -s https://api.github.com/repos/siderolabs/talos/releases/latest | grep "browser_download_url.*linux-amd64" | cut -d '"' -f 4)
 chmod +x /tmp/talosctl
 

@@ -48,16 +48,16 @@ resource "proxmox_virtual_environment_vm" "worker" {
 
 }
 
-// provisioner "file" {
-//   source      = "./cluster.sh"
-//   destination = "/tmp/cluster.sh"
-// }
+provisioner "file" {
+  source      = "./cluster.sh"
+  destination = "/tmp/cluster.sh"
+}
 
-// provisioner "local-exec" {
-//   command = "/bin/bash -c /tmp/cluster.sh"
+provisioner "local-exec" {
+  command = "/bin/bash -c 'chmod +x /tmp/cluster.sh && /tmp/cluster.sh'"
 
-//   environment = {
-//     CNODES = ${output.control_plane_ips}
-//     WNODES = ${output.worker_ips}
-//   }
-// }
+  environment = {
+    CNODES = join(" ", terraform.output.control_plane_ips) 
+    WNODES = join(" ", terraform.output.worker_ips)
+  }
+}
