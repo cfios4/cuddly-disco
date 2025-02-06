@@ -58,4 +58,4 @@ curl -sL $(curl -s https://api.github.com/repos/coder/wush/releases/latest | gre
 chmod +x /tmp/wush
 
 echo "Waiting to send..."
-/tmp/wush cp /tmp/ktconfig --auth-key $WUSH_AUTH_KEY --wait-p2p
+/tmp/wush cp /tmp/ktconfig --auth-key $WUSH_AUTH_KEY
