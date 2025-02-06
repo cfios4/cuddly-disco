@@ -70,7 +70,7 @@ resource "proxmox_vm_qemu" "control_plane" {
   target_node = "prox"
 
   clone_id = "107"
-  agent = 1
+  // agent = 1
 }
 
 resource "proxmox_vm_qemu" "worker" {
@@ -78,6 +78,6 @@ resource "proxmox_vm_qemu" "worker" {
   name        = "talos-worker-${count.index + 1}"
   target_node = "prox"
 
-  clone = "talos"
-  agent = 1
+  clone_id = "107"
+  // agent = 1
 }
