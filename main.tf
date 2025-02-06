@@ -13,14 +13,14 @@ provider "proxmox" {
   insecure = true
 }
 
-// locals {
-//   control_plane_nodes = ceil(var.total_nodes / 2) + (var.total_nodes % 2 == 0 ? 1 : 0)
-//   worker_nodes        = var.total_nodes - local.control_plane_nodes
-// }
+locals {
+  control_plane_nodes = ceil(var.total_nodes / 2) + (var.total_nodes % 2 == 0 ? 1 : 0)
+  worker_nodes        = var.total_nodes - local.control_plane_nodes
+}
 
 resource "proxmox_virtual_environment_vm" "control_plane" {
-  // count = local.control_plane_nodes
-  name        = "talos-control" #-${count.index + 1}"
+  count = local.control_plane_nodes
+  name        = "talos-control-${count.index + 1}"
   node_name = "prox"
 
   agent {
@@ -34,8 +34,8 @@ resource "proxmox_virtual_environment_vm" "control_plane" {
 }
 
 resource "proxmox_virtual_environment_vm" "worker" {
-  // count = local.worker_nodes
-  name        = "talos-worker" #-${count.index + 1}"
+  count = local.worker_nodes
+  name        = "talos-worker-${count.index + 1}"
   node_name = "prox"
 
   agent {
