@@ -18,7 +18,7 @@
 
 output "control_plane_ips" {
   description = "IP addresses of the control plane nodes"
-  value       = proxmox_virtual_environment_vm.control_plane.ipv4_addresses[1][0]
+  value       = proxmox_virtual_environment_vm.control_plane.ipv4_addresses[1]
 }
 
 output "worker_ips" {
