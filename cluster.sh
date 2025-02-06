@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+# set -x
 
 # Convert CNODES and WNODES into arrays from space-separated strings
 IFS=' ' read -r -a CNODES <<< "$CNODES"
@@ -51,11 +51,11 @@ done
 
 echo "Outputting Kubeconfig and Talosconfig..."
 /tmp/talosctl kubeconfig -n ${CONTROL[0]} -e ${CONTROL[0]} --talosconfig ./talosconfig
-cat .kube/config ; echo "----------------------------" ; cat ./talosconfig > /tmp/ktconfig
+cat ~/.kube/config ; echo "----------------------------" ; cat ~/./talosconfig > /tmp/ktconfig
 
 echo "Installing Wush..."
 curl -sL $(curl -s https://api.github.com/repos/coder/wush/releases/latest | grep "browser_download_url.*linux_amd64.tar.gz" | cut -d '"' -f 4) | tar -xzvf - -C /tmp
 chmod +x /tmp/wush
 
 echo "Waiting to send..."
-/tmp/wush cp /tmp/ktconfig --auth-key $WUSH_AUTH_KEY
+/tmp/wush cp /tmp/ktconfig -v --auth-key $WUSH_AUTH_KEY
