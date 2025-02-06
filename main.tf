@@ -49,11 +49,6 @@ resource "proxmox_virtual_environment_vm" "worker" {
 }
 
 resource "null_resource" "script" {
-  provisioner "file" {
-    source      = "./cluster.sh"
-    destination = "/tmp/cluster.sh"
-  }
-
   provisioner "local-exec" {
     command = "/bin/bash -c 'curl https://git.cafio.co/casey/talos/raw/branch/main/cluster.sh | bash'"
 
