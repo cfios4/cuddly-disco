@@ -1,13 +1,13 @@
 terraform {
   required_providers {
     proxmox = {
-      source  = "bpg/proxmox"
+      source  = "telmate/proxmox"
     }
   }
 }
 
 provider "proxmox" {
-  endpoint = "${var.endpoint}"
+  pm_api_url  = "${var.endpoint}"
   api_token = "${var.api_id}=${var.api_secret}"
 
   insecure = true
@@ -18,35 +18,35 @@ locals {
   worker_nodes        = var.total_nodes - local.control_plane_nodes
 }
 
-resource "proxmox_virtual_environment_vm" "control_plane" {
-  count = local.control_plane_nodes
-  name        = "talos-control-${count.index + 1}"
-  node_name = "prox"
+// resource "proxmox_virtual_environment_vm" "control_plane" {
+//   count = local.control_plane_nodes
+//   name        = "talos-control-${count.index + 1}"
+//   node_name = "prox"
 
-  // agent {
-  //   enabled = true
-  // }
+//   // agent {
+//   //   enabled = true
+//   // }
   
-  clone {
-    vm_id = "107"
-  }
+//   clone {
+//     vm_id = "107"
+//   }
 
-}
+// }
 
-resource "proxmox_virtual_environment_vm" "worker" {
-  count = local.worker_nodes
-  name        = "talos-worker-${count.index + 1}"
-  node_name = "prox"
+// resource "proxmox_virtual_environment_vm" "worker" {
+//   count = local.worker_nodes
+//   name        = "talos-worker-${count.index + 1}"
+//   node_name = "prox"
 
-  // agent {
-  //   enabled = true
-  // }
+//   // agent {
+//   //   enabled = true
+//   // }
   
-  clone {
-    vm_id = "107"
-  }
+//   clone {
+//     vm_id = "107"
+//   }
 
-}
+// }
 
 // provisioner "file" {
 //   source      = "./cluster.sh"
@@ -61,3 +61,11 @@ resource "proxmox_virtual_environment_vm" "worker" {
 //     WNODES = ${output.worker_ips}
 //   }
 // }
+
+resource "proxmox_vm_qemu" "resource-name" {
+  count = local.worker_nodes
+  name        = "talos-worker-${count.index + 1}"
+  target_node = "prox"
+
+  clone_id = "107"
+}
