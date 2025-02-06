@@ -1,11 +1,6 @@
 output "control_plane_ips" {
   description = "IP addresses of the control plane nodes"
-  value       = compact(flatten([
-    for ip_list in proxmox_virtual_environment_vm.control_plane[*].ipv4_addresses : [
-      for ip in ip_list : ip if !can(regex("^127\\.", ip))
-    ]
-  ]))
-
+  value       = concat(tolist([element(compact(flatten([for ip_list in proxmox_virtual_environment_vm.control_plane[*].ipv4_addresses : ip_list])), 1)]))
 }
 
 output "worker_ips" {
