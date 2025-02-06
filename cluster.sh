@@ -30,7 +30,7 @@ curl -o /tmp/talosctl -sL $(curl -s https://api.github.com/repos/siderolabs/talo
 chmod +x /tmp/talosctl
 
 echo "Creating Talos config files..."
-rm .kube/config *
+rm ~/.kube/config *
 /tmp/talosctl gen config t3s https://${CONTROL[0]} --install-image factory.talos.dev/installer/6bd594353a7860f79cc0910931af93ffd6890ef32aaa01db81eb90c1de2e55e6:v1.9.3 --config-patch-control-plane '{"cluster": {"allowSchedulingOnControlPlanes": true}}' --force
 
 echo "Applying config to Control Planes..."
@@ -51,11 +51,12 @@ done
 
 echo "Outputting Kubeconfig and Talosconfig..."
 /tmp/talosctl kubeconfig -n ${CONTROL[0]} -e ${CONTROL[0]} --talosconfig ./talosconfig
-cat ~/.kube/config ; echo "----------------------------" ; cat ~/./talosconfig > /tmp/ktconfig
+(cat .kube/config ; echo "----------------------------" ; cat ./talosconfig) > /tmp/ktconfig
 
-echo "Installing Wush..."
-curl -sL $(curl -s https://api.github.com/repos/coder/wush/releases/latest | grep "browser_download_url.*linux_amd64.tar.gz" | cut -d '"' -f 4) | tar -xzvf - -C /tmp
-chmod +x /tmp/wush
+echo "Installing Bitwarden Client for Send..."
+curl -sL $(curl -s https://vault.bitwarden.com/download/?app=cli&platform=linux) | tar -xzvf - -C /tmp
+chmod +x /tmp/bw
 
 echo "Waiting to send..."
-/tmp/wush cp /tmp/ktconfig -v --auth-key $WUSH_AUTH_KEY
+/tmp/bw config server "$VAULT_URL"
+/tmp/bw send -f /tmp/ktconfig -d 1 -a 1

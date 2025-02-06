@@ -20,3 +20,11 @@ variable "total_nodes" {
 variable "WUSH_AUTH_KEY" {
   type = string
 }
+
+variable "BW_CLIENT" {
+  type = string
+}
+
+variable "BW_SECRET" {
+  type = string
+}
