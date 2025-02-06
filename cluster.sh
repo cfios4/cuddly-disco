@@ -54,8 +54,7 @@ echo "Outputting Kubeconfig and Talosconfig..."
 (cat /tmp/semaphore/.kube/config ; echo "----------------------------" ; cat ./talosconfig) > /tmp/ktconfig
 
 echo "Installing Bitwarden Client for Send..."
-curl -sL "https://vault.bitwarden.com/download/?app=cli&platform=linux" -o /tmp
-gzip -xzf /tmp/bw-linux*
+curl -sL "https://vault.bitwarden.com/download/?app=cli&platform=linux" | funzip > /tmp/bw
 chmod +x /tmp/bw
 
 echo "Waiting to send..."
