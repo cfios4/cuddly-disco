@@ -51,10 +51,11 @@ done
 
 echo "Outputting Kubeconfig and Talosconfig..."
 /tmp/talosctl kubeconfig -n ${CONTROL[0]} -e ${CONTROL[0]} --talosconfig ./talosconfig
-(cat .kube/config ; echo "----------------------------" ; cat ./talosconfig) > /tmp/ktconfig
+(cat /tmp/semaphore/.kube/config ; echo "----------------------------" ; cat ./talosconfig) > /tmp/ktconfig
 
 echo "Installing Bitwarden Client for Send..."
-curl -sL "https://vault.bitwarden.com/download/?app=cli&platform=linux" | tar -xzvf - -C /tmp
+curl -sL "https://vault.bitwarden.com/download/?app=cli&platform=linux" -o /tmp
+gzip -xzf /tmp/bw-linux*
 chmod +x /tmp/bw
 
 echo "Waiting to send..."
