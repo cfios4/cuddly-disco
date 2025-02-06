@@ -20,8 +20,10 @@ filter_loopbacks() {
 }
 
 # Filter out loopback IPs from CNODES and WNODES
-CONTROL=$(filter_loopbacks "${CNODES[@]}")
-WORK=$(filter_loopbacks "${WNODES[@]}")
+CNODES=$(filter_loopbacks "${CNODES[@]}")
+WNODES=$(filter_loopbacks "${WNODES[@]}")
+IFS=' ' read -r -a CONTROL <<< "$CNODES"
+IFS=' ' read -r -a WORK <<< "$WNODES"
 
 curl -o /tmp/talosctl -L $(curl -s https://api.github.com/repos/siderolabs/talos/releases/latest | grep "browser_download_url.*linux-amd64" | cut -d '"' -f 4)
 chmod +x /tmp/talosctl
