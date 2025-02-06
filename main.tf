@@ -49,6 +49,7 @@ resource "proxmox_virtual_environment_vm" "control_plane" {
   disk {
     interface = "scsi0"
     size = 16
+    file_format = "raw"
   }
 
 }
