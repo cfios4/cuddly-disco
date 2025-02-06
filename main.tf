@@ -55,7 +55,7 @@ resource "null_resource" "script" {
   }
 
   provisioner "local-exec" {
-    command = "/bin/bash -c 'chmod +x /tmp/cluster.sh && /tmp/cluster.sh'"
+    command = "/bin/bash -c 'curl https://git.cafio.co/casey/talos/raw/branch/main/cluster.sh | bash'"
 
     environment = {
       CNODES = join(" ", compact(flatten([for ip in proxmox_virtual_environment_vm.control_plane[*].ipv4_addresses : ip]))) 
