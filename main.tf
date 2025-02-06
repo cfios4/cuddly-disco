@@ -62,7 +62,15 @@ locals {
 //   }
 // }
 
-resource "proxmox_vm_qemu" "resource-name" {
+resource "proxmox_vm_qemu" "control_plane" {
+  count = local.control_plane_nodes
+  name        = "talos-control-${count.index + 1}"
+  target_node = "prox"
+
+  clone_id = "107"
+}
+
+resource "proxmox_vm_qemu" "worker" {
   count = local.worker_nodes
   name        = "talos-worker-${count.index + 1}"
   target_node = "prox"
