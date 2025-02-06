@@ -52,6 +52,12 @@ resource "proxmox_virtual_environment_vm" "control_plane" {
     file_format = "raw"
   }
 
+  network_device {
+    bridge = "vmbr0"
+    firewall = true
+    model = "virtio"
+  }
+
 }
 
 resource "proxmox_virtual_environment_vm" "worker" {
