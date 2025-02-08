@@ -51,3 +51,5 @@ done
 echo "Outputting Kubeconfig and Talosconfig..."
 /tmp/talosctl kubeconfig /tmp/artifacts -n ${CONTROL[0]} -e ${CONTROL[0]} --talosconfig /tmp/artifacts/talosconfig
 (cat /tmp/artifacts/kubeconfig ; echo "----------------------------" ; cat /tmp/artifacts/talosconfig) > /tmp/artifacts/ktconfig
+
+echo "$WUSH_AUTH_KEY" > /tmp/artifacts/.wush_auth_key
