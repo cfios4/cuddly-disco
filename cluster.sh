@@ -31,31 +31,36 @@ chmod +x /tmp/talosctl
 
 echo "Creating Talos config files..."
 rm ~/.kube/config *
-/tmp/talosctl gen config t3s https://${CONTROL[0]} --install-image factory.talos.dev/installer/6bd594353a7860f79cc0910931af93ffd6890ef32aaa01db81eb90c1de2e55e6:v1.9.3 --config-patch-control-plane '{"cluster": {"allowSchedulingOnControlPlanes": true}}' --force
+/tmp/talosctl gen config t3s https://${CONTROL[0]} -o /tmp/artifacts --install-image factory.talos.dev/installer/6bd594353a7860f79cc0910931af93ffd6890ef32aaa01db81eb90c1de2e55e6:v1.9.3 --config-patch-control-plane '{"cluster": {"allowSchedulingOnControlPlanes": true}}' --force
 
 echo "Applying config to Control Planes..."
 for controller in ${CONTROL[@]} ; do
-    /tmp/talosctl apply-config -f controlplane.yaml -n $controller -e $controller --insecure
+    /tmp/talosctl apply-config -f /tmp/artifactscontrolplane.yaml -n $controller -e $controller --insecure
 done
 
 echo "Applying config to Workers..."
 for worker in ${WORK[@]} ; do
-    /tmp/talosctl apply-config -f worker.yaml -n $worker -e $worker --insecure
+    /tmp/talosctl apply-config -f /tmp/artifactsworker.yaml -n $worker -e $worker --insecure
 done
 
 echo "Waiting for Control Plane..."
-until /tmp/talosctl bootstrap -n ${CONTROL[0]} -e ${CONTROL[0]} --talosconfig ./talosconfig ; do
+until /tmp/talosctl bootstrap -n ${CONTROL[0]} -e ${CONTROL[0]} --talosconfig /tmp/artifacts/talosconfig ; do
     echo "Node rebooting..."
     sleep 2
 done
 
 echo "Outputting Kubeconfig and Talosconfig..."
-/tmp/talosctl kubeconfig -n ${CONTROL[0]} -e ${CONTROL[0]} --talosconfig ./talosconfig
-(cat /tmp/semaphore/.kube/config ; echo "----------------------------" ; cat ./talosconfig) > /tmp/ktconfig
+/tmp/talosctl kubeconfig /tmp/artifacts -n ${CONTROL[0]} -e ${CONTROL[0]} --talosconfig /tmp/artifacts/talosconfig
+(cat /tmp/artifacts/.kube/config ; echo "----------------------------" ; cat /tmp/artifacts/talosconfig) > /tmp/artifacts/ktconfig
 
 echo "Installing Wush..."
 curl -sL $(curl -s https://api.github.com/repos/coder/wush/releases/latest | grep "browser_download_url.*linux_amd64.tar.gz" | cut -d '"' -f 4) | tar -xzvf - -C /tmp
 chmod +x /tmp/wush
 
-echo "Waiting to send..."
-/tmp/wush cp /tmp/ktconfig --auth-key $WUSH_AUTH_KEY
+echo "Writing script for sidecar..."
+tee /tmp/artifacts/wushy.sh <<EOF
+until wush cp /tmp/artifacts/ktconfig --auth-key $WUSH_AUTH_KEY ; do
+  sleep 2
+done
+EOF
+chmod +x /tmp/artifacts/wushy.sh
