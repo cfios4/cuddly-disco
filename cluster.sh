@@ -56,11 +56,3 @@ echo "Outputting Kubeconfig and Talosconfig..."
 echo "Installing Wush..."
 curl -sL $(curl -s https://api.github.com/repos/coder/wush/releases/latest | grep "browser_download_url.*linux_amd64.tar.gz" | cut -d '"' -f 4) | tar -xzvf - -C /tmp
 chmod +x /tmp/wush
-
-echo "Writing script for sidecar..."
-tee /tmp/artifacts/wushy.sh <<EOF
-until wush cp /tmp/artifacts/ktconfig --auth-key $WUSH_AUTH_KEY ; do
-  sleep 2
-done
-EOF
-chmod +x /tmp/artifacts/wushy.sh
