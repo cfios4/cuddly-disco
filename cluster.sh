@@ -51,7 +51,3 @@ done
 echo "Outputting Kubeconfig and Talosconfig..."
 /tmp/talosctl kubeconfig /tmp/artifacts -n ${CONTROL[0]} -e ${CONTROL[0]} --talosconfig /tmp/artifacts/talosconfig
 (cat /tmp/artifacts/kubeconfig ; echo "----------------------------" ; cat /tmp/artifacts/talosconfig) > /tmp/artifacts/ktconfig
-
-echo "Installing Wush..."
-curl -sL $(curl -s https://api.github.com/repos/coder/wush/releases/latest | grep "browser_download_url.*linux_amd64.tar.gz" | cut -d '"' -f 4) | tar -xzvf - -C /tmp
-chmod +x /tmp/wush
