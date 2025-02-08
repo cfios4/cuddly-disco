@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+# set -x
 
 # Convert CNODES and WNODES into arrays from space-separated strings
 IFS=' ' read -r -a CNODES <<< "$CNODES"
