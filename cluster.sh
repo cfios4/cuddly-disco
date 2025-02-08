@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -x
+set -x
 
 # Convert CNODES and WNODES into arrays from space-separated strings
 IFS=' ' read -r -a CNODES <<< "$CNODES"
@@ -30,7 +30,7 @@ curl -o /tmp/talosctl -sL $(curl -s https://api.github.com/repos/siderolabs/talo
 chmod +x /tmp/talosctl
 
 echo "Creating Talos config files..."
-rm ~/.kube/config *
+rm ~/.kube/config
 /tmp/talosctl gen config t3s https://${CONTROL[0]} -o /tmp/artifacts --install-image factory.talos.dev/installer/6bd594353a7860f79cc0910931af93ffd6890ef32aaa01db81eb90c1de2e55e6:v1.9.3 --config-patch-control-plane '{"cluster": {"allowSchedulingOnControlPlanes": true}}' --force
 
 echo "Applying config to Control Planes..."
