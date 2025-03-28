@@ -1,0 +1,51 @@
+machine:
+  network:
+    kubespan:
+      enabled: true
+    interfaces:
+      - deviceSelector:
+          physical: true
+        dhcp: true
+
+  install:
+    image: factory.talos.dev/installer/85f683902139269fbc5a7f64ea94a694d31e0b3d94347a225223fcbd042083ae:v1.9.5 # rebuild everytime
+    disk: ${INSTALL_DEV}
+    # diskSelector: # Look up disk using disk attributes like model, size, serial and others
+    #   size: 8GB # Disk size
+    #   model: WDC* # Disk model `/sys/block/<dev>/device/model`
+    #   busPath: /pci0000:00/0000:00:17.0/ata1/host0/target0:0:0/0:0:0:0 # Disk bus path
+    wipe: true
+
+  kubelet:
+    extraMounts:
+      - destination: /var/lib/longhorn
+        type: bind
+        source: /var/lib/longhorn
+        options:
+          - bind
+          - rshared
+          - rw
+
+      - destination: ${ADD_DISK_MP}
+        type: bind
+        source: ${ADD_DISK_MP}
+        options:
+          - bind
+          - rshared
+          - rw
+
+  disks:
+    - device: ${ADDITIONAL_DISK}
+      partitions:
+        - mountpoint: ${ADD_DISK_MP}
+
+cluster:
+    allowSchedulingOnControlPlanes: true
+    clusterName: ${CLUSTER_NAME}
+    discovery:
+      enabled: true
+      registries:
+        kubernetes:
+          disabled: true
+        service:
+          endpoint: https://discovery.talos.dev/
