@@ -24,7 +24,7 @@ Talos/
     │       ├── manifest.yaml
     │       └── config.yaml
     ├── Media/
-    │   ├── {Rad,Son,Wiz,Request}arr
+    │   ├── {Rad,Son,Wiz,Jellysee}arr
     │   ├── Plex / Jellyfin
     │   └── Usenet
     └── Cloud/
@@ -61,7 +61,7 @@ BUT I could use Kustomize for the _similar_ services like Radarr and Sonarr, tho
       - Storage used for AppData
         - Nextcloud / Immich and Vaultwarden data is the biggest concern
       - Longhorn S3 backup to BackBlaze
-- [~] RK1 hardware transcoding for Plex
+- [ ] ~~RK1 hardware transcoding for Plex~~
 - [ ] KubeVirt
 - [ ] Rebuild using repo
 - [ ] Automate (Fleet)
