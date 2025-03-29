@@ -5,6 +5,9 @@ k create namespace longhorn-system
 k label ns/longhorn-system pod-security.kubernetes.io/enforce=privileged
 helm install longhorn longhorn/longhorn --namespace longhorn-system
 
+helm repo add metallb https://metallb.github.io/metallb
+helm install my-metallb metallb/metallb --version 0.14.9
+
 helm repo add nginx https://helm.nginx.com/stable
 helm install nginx-ingress nginx/nginx-ingress --create-namespace
 
@@ -14,5 +17,15 @@ helm install cert-manager --namespace cert-manager --version v1.17.1 jetstack/ce
 helm repo add fleet https://rancher.github.io/fleet-helm-charts/
 helm -n cattle-fleet-system install --create-namespace --wait fleet-crd fleet/fleet-crd
 helm -n cattle-fleet-system install --create-namespace --wait fleet fleet/fleet
+
+
+
+helm repo add nextcloud https://nextcloud.github.io/helm/
+helm install my-release nextcloud/nextcloud --namespace nextcloud
+
+helm repo add gitea https://dl.gitea.io/charts
+helm install gitea gitea/gitea --namespace gitea
+
+
 
 helm repo update

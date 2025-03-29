@@ -3,8 +3,17 @@
 alias t=talosctl
 # alias docker=podman
 
-t image default
+# create local registry
 docker run -d -p 5000:5000 --restart always --name registry-airgapped docker.io/library/registry:2
-for image in `t image default` ; do docker pull $image ; done
-for image in `t image default` ; do docker tag $image `echo $image | sed -E 's#^[^/]+/#127.0.0.1:5000/#'` ; done
-for image in `t image default` ; do docker push `echo $image | sed -E 's#^[^/]+/#127.0.0.1:5000/#'` ; done
+# mirror talos images
+for image in `t image default` ; do
+    docker pull $image
+    docker tag $image `echo $image | sed -E 's#^[^/]+/#localhost:5000/#'`
+    docker push `echo $image | sed -E 's#^[^/]+/#localhost:5000/#'`
+done
+# mirror images used in manifests/
+for image in `grep "image: " manifests/* | awk -F 'image: ' '{print $2}'` ; do 
+    docker pull $image 
+    docker tag $image `echo $image | sed -E 's#^[^/]+/#localhost:5000/#'` 
+    docker push `echo $image | sed -E 's#^[^/]+/#localhost:5000/#'`
+done

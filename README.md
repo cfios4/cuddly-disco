@@ -2,6 +2,7 @@ This repo is designed to create a Talos cluster using a Turing Pi setup with RK1
 
 ```
 Talos/
+├── README.md
 ├── gen-configs.sh
 ├── create-registry.sh
 ├── Patches/
@@ -9,65 +10,59 @@ Talos/
 │       ├── airgap.yaml
 │       ├── control-plane.yaml
 │       └── worker.yaml
-├── Helm/
-│   ├── Fleet
-│   ├── Nginx-Ingress
-│   ├── Cert-Manager
-│   ├── Longhorn
-│   └── Kube-Vip / MetalLB
 └── Manifests/
+    ├── Core/
+    │   ├── MetalLB/
+    │   │   ├── manifest.yaml
+    │   │   └── config.yaml
+    │   ├── Nginx-Ingress
+    │   ├── Cert-Manager
+    │   ├── Longhorn/
+    │   │   ├── manifest.yaml
+    │   │   └── config.yaml
+    │   └── Fleet/
+    │       ├── manifest.yaml
+    │       └── config.yaml
     ├── Media/
     │   ├── {Rad,Son,Wiz,Request}arr
     │   ├── Plex / Jellyfin
     │   └── Usenet
     └── Cloud/
-        ├── Nextcloud
+        ├── Nextcloud (Filestash w/ NFS) / Immich
+        ├── Vault
         ├── Git
         ├── Bin
-        ├── Vault
-        └── VPN infrastructure?
+        ├── Infisical?
+        └── DNS (HA)
+
+k create deploy <name> --image=<image> --port <port> --namespace <namespace> --dry-run -o yaml > manifests/<name>/deployment.yaml
+
+k create service clusterip <name> -n <namespace> --tcp=5678:8080 --dry-run -o yaml > manifests/<name>/service.yaml
 ```
+### Helm vs Kustomize
 
+Helm allows for templating, Kustomize is more for "patching" similar creations (like prod / dev environments)
 
-Usage:
-1. Head to Semaphore and run the task
-2. Enter the desired cluster size
-  1. Math will be applied to make the cluster HA
-3. Enter your key from `https://wush.dev/receive#`
-4. Build
-5. When build is complete, a file should be downloaded in your `wush` tab
+I can use Helm to auto-template things like an ingress endpoint name for services based off the service name. But is this ~~neccessary~~ worthwhile? I could simply pin those values because the service name is often not used for exposure.
 
+BUT I could use Kustomize for the _similar_ services like Radarr and Sonarr, though, those may be the only two...
 
-To change environments, be sure to update the variable groups in Semaphore
+### Todos
 
-Required Variables:
-- endpoint
-  - Proxmox endpoint
-  - <example>
-- api_id
-  - Proxmox API
-- api_secret
-  - Proxmox API
-- total_nodes
-  - Cluster size
-- WUSH_AUTH_KEY
-  - From https://wush.dev/receive#
-
-```bash
-#!/bin/bash
-
-TALOS_NODES(192.168.x.1 192.168.x.2 192.168.x.3 192.168.x.4)
-
-for node in 1 2 3 4 ; do tpi --host turingpi.lan --user <turing-user> --password <turing-pass> flash --image-path talos-arm64-turing-rk1_v1.6.3.raw -n $node ; done
-tpi --host turingpi.lan --user <turing-user> --password <turing-pass> power on
-
-talosctl gen config turing https://${TALOS_NODES[1]}:6443 --install-disk /dev/mmcblk0
-for node in ${TALOS_NODES[@]} ; do talosctl apply-config -f controlplane.yaml -n ${TALOS_NODES[@]} -e ${TALOS_NODES[@]} --insecure ; done
-
-talosctl kubeconfig -n ${TALOS_NODES[0]}
-
-kubectl get nodes
-
-<!-- talosctl dashboard -n ${TALOS_NODES[@]} -->
-<!-- talosctl reset -n ${TALOS_NODES[@]} -->
-```
+- [ ] Ingress for local only services
+    - Internal DNS
+    - Public DNS but only accessible from internal
+- [ ] Create / get manifests for services
+    - Deployments
+    - Services / Ingress
+    - Configmaps
+    - Secrets
+    - PV/Cs
+      - Storage used for AppData
+        - Nextcloud / Immich and Vaultwarden data is the biggest concern
+      - Longhorn S3 backup to BackBlaze
+- [~] RK1 hardware transcoding for Plex
+- [ ] KubeVirt
+- [ ] Rebuild using repo
+- [ ] Automate (Fleet)
+- [ ] Migrate
