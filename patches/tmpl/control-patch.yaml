@@ -1,4 +1,6 @@
 machine:
+  type: controlplane
+
   network:
     kubespan:
       enabled: true
@@ -40,6 +42,10 @@ machine:
     - device: ${ADDITIONAL_DISK}
       partitions:
         - mountpoint: ${ADD_DISK_MP}
+
+  nodeAnnotations:
+    node.longhorn.io/create-default-disks: config
+    node.longhorn.io/default-disks-config: [{"allowScheduling":true,"path":"/var/lib/longhorn"},{"allowScheduling":true,"name":"nvme","path":"$ADD_DISK_MP"}]
 
 cluster:
     allowSchedulingOnControlPlanes: true
