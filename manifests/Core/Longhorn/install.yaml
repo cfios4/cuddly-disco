@@ -84,6 +84,7 @@ data:
     priority-class: longhorn-critical
     disable-revision-counter: true
     create-default-disk-labeled-nodes: true
+    storage-reserved-percentage-for-default-disk: 13
 ---
 # Source: longhorn/templates/storageclass.yaml
 apiVersion: v1
