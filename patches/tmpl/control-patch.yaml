@@ -47,7 +47,7 @@ machine:
     node.longhorn.io/create-default-disk: config
 
   nodeAnnotations:
-    node.longhorn.io/default-disks-config: '[{"allowScheduling":true,"path":"/var/lib/longhorn"},{"allowScheduling":true,"name":"nvme","storageReserved":250000000,"path":"$ADD_DISK_MP"}]'
+    node.longhorn.io/default-disks-config: '[{"allowScheduling":true,"path":"/var/lib/longhorn"},{"allowScheduling":true,"name":"nvme","path":"$ADD_DISK_MP"}]'
 
 cluster:
     allowSchedulingOnControlPlanes: true
