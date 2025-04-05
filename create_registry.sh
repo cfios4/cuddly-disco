@@ -12,7 +12,7 @@ for image in `t image default` ; do
     docker push `echo $image | sed -E 's#^[^/]+/#localhost:5000/#'`
 done
 # mirror images used in manifests/
-for image in `grep "image: " manifests/* | awk -F 'image: ' '{print $2}'` ; do 
+for image in `grep -r "image: " manifests/* | awk -F 'image: ' '{print $2}'` ; do 
     docker pull $image 
     docker tag $image `echo $image | sed -E 's#^[^/]+/#localhost:5000/#'` 
     docker push `echo $image | sed -E 's#^[^/]+/#localhost:5000/#'`
