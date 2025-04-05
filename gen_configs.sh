@@ -33,7 +33,7 @@ for node in 192.168.45.{51..53} ; do
         done
 done
 
-until talosctl bootstrap -n 192.168.45.51 -e 192.168.45.51 ; do
+until talosctl bootstrap -n 192.168.45.51 -e 192.168.45.51 > /dev/null 2>&1 ; do
         sleep 2
 done
 
