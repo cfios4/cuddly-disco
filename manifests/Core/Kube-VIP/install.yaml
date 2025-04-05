@@ -217,5 +217,5 @@ metadata:
   name: kubevip
   namespace: kube-system
 data:
-  cidr-default: 192.168.45.100/31
-  cidr-ingress-nginx: 192.168.45.55/32
+  cidr-default: 192.168.45.100/30
+  cidr-ingress-nginx: ${S_VIP}/32
