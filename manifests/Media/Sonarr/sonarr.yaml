@@ -41,14 +41,14 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: sonarr-ing
+  name: sonarr
   labels:
     app: sonarr
   namespace: media
 spec:
   ingressClassName: nginx
   rules:
-  - host: sonarr.t3s.lan
+  - host: shows.watch.${DOMAIN}
     http:
       paths:
       - path: /
