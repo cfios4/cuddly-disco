@@ -9,7 +9,7 @@ machine:
           physical: true
         dhcp: true
         vip:
-          ip: ${VIP}
+          ip: ${T_VIP}
 
   install:
     image: factory.talos.dev/installer/85f683902139269fbc5a7f64ea94a694d31e0b3d94347a225223fcbd042083ae:v1.9.5 # rebuild everytime
@@ -47,13 +47,13 @@ machine:
     node.longhorn.io/create-default-disk: config
 
   nodeAnnotations:
-    node.longhorn.io/default-disks-config: '[{"allowScheduling":true,"path":"/var/lib/longhorn"},{"allowScheduling":true,"name":"nvme","path":"$ADD_DISK_MP"}]'
+    node.longhorn.io/default-disks-config: '[{"allowScheduling":true,"path":"/var/lib/longhorn"},{"allowScheduling":true,"name":"nvme","storageReserved":250000000,"path":"$ADD_DISK_MP"}]'
 
 cluster:
     allowSchedulingOnControlPlanes: true
     clusterName: ${CLUSTER_NAME}
     controlPlane:
-        endpoint: https://${VIP}:6443
+        endpoint: https://${T_VIP}:6443
     discovery:
       enabled: true
       registries:
