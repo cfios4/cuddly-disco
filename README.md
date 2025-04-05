@@ -1,10 +1,28 @@
-This repo is designed to create a Talos cluster using a Turing Pi setup with RK1s.
+# This repo is designed to create a Talos cluster ~~using a Turing Pi setup with RK1s~~ in a completely agnostic fashion. 
+
+## Prerequisites:
+- Airgap (optional)
+  - Registry
+    - DNS
+    - NTP
+    - Images
+- Cluster Plan
+  - Two disks installed per node
+    - Install disk
+    - Longhorn storage
+  - Nodes built / in Talos maintenance mode
+    - Control plane range
+    - Worker range
+    - Cluster API VIP
+      - +1 of last Worker range
+    - Cluster Service VIP
+      - +2 of last Worker range
 
 ```
 Talos/
 ├── README.md
 ├── gen-configs.sh
-├── create-registry.sh
+├── airgap.sh
 ├── Patches/
 │   └── Tmpl/
 │       ├── airgap.yaml
@@ -12,28 +30,26 @@ Talos/
 │       └── worker.yaml
 └── Manifests/
     ├── Core/
-    │   ├── MetalLB/
-    │   │   ├── manifest.yaml
-    │   │   └── config.yaml
-    │   ├── Nginx-Ingress
-    │   ├── Cert-Manager
+    │   ├── Kube-Vip/
+    │   │   └── manifest.yaml
     │   ├── Longhorn/
     │   │   ├── manifest.yaml
-    │   │   └── config.yaml
+    │   │   └── pvc.yaml
+    │   ├── Nginx-Ingress/
+    │   │   └── manifest.yaml
+    │   ├── Cert-Manager/
     │   └── Fleet/
-    │       ├── manifest.yaml
-    │       └── config.yaml
     ├── Media/
-    │   ├── {Rad,Son,Wiz,Jellysee}arr
-    │   ├── Plex / Jellyfin
-    │   └── Usenet
+    │   ├── {Rad,Son,Wiz,Jellysee}arr/
+    │   ├── Plex / Jellyfin/
+    │   └── Usenet/
     └── Cloud/
-        ├── Nextcloud (Filestash w/ NFS) / Immich
-        ├── Vault
-        ├── Git
-        ├── Bin
-        ├── Infisical?
-        └── DNS (HA)
+        ├── Nextcloud (Filestash w/ NFS) / Immich/
+        ├── Vault/
+        ├── Git/
+        ├── Bin/
+        ├── Infisical?/
+        └── DNS (HA)/
 
 k create deploy <name> --image=<image> --port <port> --namespace <namespace> --dry-run -o yaml > manifests/<name>/deployment.yaml
 
@@ -47,11 +63,8 @@ I can use Helm to auto-template things like an ingress endpoint name for service
 
 BUT I could use Kustomize for the _similar_ services like Radarr and Sonarr, though, those may be the only two...
 
-### Todos
+### Todos:
 
-- [ ] Ingress for local only services
-    - Internal DNS
-    - Public DNS but only accessible from internal
 - [ ] Create / get manifests for services
     - Deployments
     - Services / Ingress
@@ -61,8 +74,12 @@ BUT I could use Kustomize for the _similar_ services like Radarr and Sonarr, tho
       - Storage used for AppData
         - Nextcloud / Immich and Vaultwarden data is the biggest concern
       - Longhorn S3 backup to BackBlaze
+- [ ] Ingress for local only services
+    - Public DNS but only accessible from internal
+      - Internal DNS
 - [ ] ~~RK1 hardware transcoding for Plex~~
 - [ ] KubeVirt
+- [ ] Agnosticize 
 - [ ] Rebuild using repo
 - [ ] Automate (Fleet)
 - [ ] Migrate
