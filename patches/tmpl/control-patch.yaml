@@ -43,8 +43,10 @@ machine:
       partitions:
         - mountpoint: ${ADD_DISK_MP}
 
-  nodeAnnotations:
+  nodeLabels:
     node.longhorn.io/create-default-disk: config
+
+  nodeAnnotations:
     node.longhorn.io/default-disks-config: '[{"allowScheduling":true,"path":"/var/lib/longhorn"},{"allowScheduling":true,"name":"nvme","path":"$ADD_DISK_MP"}]'
 
 cluster:
