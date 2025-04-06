@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: plex
+  name: plex
+  namespace: media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: plex
+  template:
+    metadata:
+      labels:
+        app: plex
+    spec:
+      containers:
+      - image: hotio/plex
+        name: plex
+        ports:
+        - containerPort: 32400
+        env:
+        - name: PLEX_CLAIM_TOKEN
+          value:  #https://plex.tv/claim
+        - name: PLEX_ADVERTISE_URL
+          value: watch.${DOMAIN}
+        - name: PLEX_NO_AUTH_NETWORKS
+          value: 192.168.45.0/24
+        volumeMounts:
+          - name: media-store
+            mountPath: /mnt/media
+      volumes:
+      - name: media-store
+        nfs:
+          server: nas.lan
+          path: /mass-zfs-unreliable/media
+          readOnly: true
