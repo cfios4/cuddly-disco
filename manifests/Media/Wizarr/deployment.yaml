@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: wizarr
+  name: wizarr
+  namespace: media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wizarr
+  template:
+    metadata:
+      labels:
+        app: wizarr
+    spec:
+      containers:
+      - image: hotio/wizarr
+        name: wizarr
+        ports:
+        - containerPort: 5690

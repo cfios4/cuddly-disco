@@ -6,8 +6,16 @@ metadata:
   labels:
     app: sonarr
   namespace: media
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - shows.watch.${DOMAIN}
+    secretName: sonarr-tls
   rules:
   - host: shows.watch.${DOMAIN}
     http:
