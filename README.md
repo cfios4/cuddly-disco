@@ -1,12 +1,15 @@
 # This repo is designed to create a Talos cluster ~~using a Turing Pi setup with RK1s~~ in a completely agnostic fashion. 
+Maybe this should be converted into a generic repo for services and Talos creation in a seperate repo?
+
 
 ## Prerequisites:
 - Airgap (optional)
-  - Registry
-    - DNS
-    - NTP
-    - Images
-- Cluster Plan
+  - Zarf (assumed to be the "bridge" machine)
+    - [x] Registry
+    - [ ] DNS
+    - [ ] NTP
+    - [x] Images
+- Cluster Plan (Talos)
   - Two disks installed per node
     - Install disk
     - Longhorn storage
@@ -18,38 +21,41 @@
     - Cluster Service VIP
       - +2 of last Worker range
 
+I would like better logic for the `Cluster Plan`
 ```
 Talos/
 ├── README.md
 ├── gen-configs.sh
 ├── airgap.sh
-├── Patches/
-│   └── Tmpl/
-│       ├── airgap.yaml
-│       ├── control-plane.yaml
-│       └── worker.yaml
-└── Manifests/
-    ├── Core/
-    │   ├── Kube-Vip/
-    │   │   └── manifest.yaml
-    │   ├── Longhorn/
-    │   │   ├── manifest.yaml
+└── patches/
+    └── tmpl/
+        ├── airgap.yaml
+        ├── control-plane.yaml
+        └── worker.yaml
+Stack/
+├── README.md
+└── manifests/
+    ├── core/
+    │   ├── kube-vip/
+    │   │   └── install.yaml
+    │   ├── longhorn/
+    │   │   ├── install.yaml
     │   │   └── pvc.yaml
-    │   ├── Nginx-Ingress/
-    │   │   └── manifest.yaml
-    │   ├── Cert-Manager/
-    │   └── Fleet/
-    ├── Media/
-    │   ├── {Rad,Son,Wiz,Jellysee}arr/
-    │   ├── Plex / Jellyfin/
-    │   └── Usenet/
-    └── Cloud/
-        ├── Nextcloud (Filestash w/ NFS) / Immich/
-        ├── Vault/
-        ├── Git/
-        ├── Bin/
-        ├── Infisical?/
-        └── DNS (HA)/
+    │   ├── nginx-ingress/
+    │   │   └── install.yaml
+    │   ├── cert-manager/
+    │   └── fleet/
+    ├── media/
+    │   ├── {rad,son,wiz,oversee}arr/
+    │   ├── plex/
+    │   └── usenet/
+    └── cloud/
+        ├── nextcloud
+        ├── vault/
+        ├── git/
+        ├── gist/
+        ├── pihole/
+        └── kubevirt/
 
 k create deploy <name> --image=<image> --port <port> --namespace <namespace> --dry-run -o yaml > manifests/<name>/deployment.yaml
 
@@ -59,27 +65,29 @@ k create service clusterip <name> -n <namespace> --tcp=5678:8080 --dry-run -o ya
 
 Helm allows for templating, Kustomize is more for "patching" similar creations (like prod / dev environments)
 
-I can use Helm to auto-template things like an ingress endpoint name for services based off the service name. But is this ~~neccessary~~ worthwhile? I could simply pin those values because the service name is often not used for exposure.
+I can use Helm to auto-template things like an ingress endpoint name for services based off the service name. But is this ~~neccessary~~ worthwhile? Probably (definitely) worth learning.
 
-BUT I could use Kustomize for the _similar_ services like Radarr and Sonarr, though, those may be the only two...
+BUT I could use Kustomize as a base and unique patches for services off of the base? Not saving much work if each service needs it though...
 
 ### Todos:
 
-- [ ] Create / get manifests for services
+- [x] Create / get manifests for services
     - Deployments
-    - Services / Ingress
+    - Services
+    - Ingress
     - Configmaps
     - Secrets
+      -  SOPS
     - PV/Cs
-      - Storage used for AppData
-        - Nextcloud / Immich and Vaultwarden data is the biggest concern
+      - Nextcloud / Immich and Vaultwarden data is the biggest concern
+        - Seperate backup policies
       - Longhorn S3 backup to BackBlaze
+      - Longhorn NFS backup to UNAS
 - [ ] Ingress for local only services
-    - Public DNS but only accessible from internal
-      - Internal DNS
+    - Public DNS but only accessible from internal?
 - [ ] ~~RK1 hardware transcoding for Plex~~
 - [ ] KubeVirt
 - [ ] Agnosticize 
 - [ ] Rebuild using repo
-- [ ] Automate (Fleet)
+- [ ] Automate (GitOps)
 - [ ] Migrate
