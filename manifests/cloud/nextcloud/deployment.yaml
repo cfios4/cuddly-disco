@@ -32,3 +32,10 @@ spec:
           value: 50G
         - name: PHP_MEMORY_LIMIT
           value: 50G
+        volumeMounts:
+        - name: nextcloud-appdata
+          mountPath: /config
+      volumes:
+        - name: nextcloud-appdata
+          persistentVolumeClaim:
+            claimName: nextcloud-appdata

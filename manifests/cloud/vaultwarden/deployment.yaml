@@ -36,3 +36,10 @@ spec:
           value: "false"
         - name: SIGNUPS_VERIFY
           value: "false"
+        volumeMounts:
+        - name: vaultwarden-appdata
+          mountPath: /config
+      volumes:
+        - name: vaultwarden-appdata
+          persistentVolumeClaim:
+            claimName: vaultwarden-appdata

@@ -30,3 +30,10 @@ spec:
           value: 127.0.0.0/8,${DOMAIN}
         - name: EMAIL_DOMAIN_ALLOWLIST
           value: ${DOMAIN}
+        volumeMounts:
+        - name: gitea-appdata
+          mountPath: /config
+      volumes:
+        - name: gitea-appdata
+          persistentVolumeClaim:
+            claimName: gitea-appdata
