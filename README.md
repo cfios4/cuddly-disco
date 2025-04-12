@@ -4,10 +4,10 @@ Maybe this should be converted into a generic repo for services and Talos creati
 
 ## Prerequisites:
 - Airgap (optional)
-  - Zarf (assumed to be the "bridge" machine)
+  - Zarf (with PiHole package)
     - [x] Registry
-    - [ ] DNS
-    - [ ] NTP
+    - [x] DNS
+    - [x] NTP
     - [x] Images
 - Cluster Plan (Talos)
   - Two disks installed per node
