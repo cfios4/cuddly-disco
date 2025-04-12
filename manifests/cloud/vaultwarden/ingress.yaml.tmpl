@@ -2,9 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: gist
+  name: vaultwarden
   labels:
-    app: gist
+    app: vaultwarden
   namespace: cloud
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
@@ -14,16 +14,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - gist.git.${DOMAIN}
-    secretName: gist-tls
+    - vault.${DOMAIN}
+    secretName: vaultwarden-tls
   rules:
-  - host: gist.git.${DOMAIN}
+  - host: vault.${DOMAIN}
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: gist
+            name: vaultwarden
             port:
-              number: 6157
+              number: 80

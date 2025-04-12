@@ -2,9 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: gist
+  name: nextcloud
   labels:
-    app: gist
+    app: nextcloud
   namespace: cloud
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
@@ -14,16 +14,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - gist.git.${DOMAIN}
-    secretName: gist-tls
+    - cloud.${DOMAIN}
+    secretName: nextcloud-tls
   rules:
-  - host: gist.git.${DOMAIN}
+  - host: cloud.${DOMAIN}
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: gist
+            name: nextcloud
             port:
-              number: 6157
+              number: 80

@@ -2,27 +2,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pastefy-prod
   labels:
-    app: pastefy-prod
+    app: gist
+  name: gist
+  namespace: cloud
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: pastefy-prod
+      app: gist
   template:
     metadata:
       labels:
-        app: pastefy-prod
+        app: gist
     spec:
       containers:
-        - name: pastefy-prod
-          image: '${CI_REGISTRY}/${CI_PROJECT_PATH}:${BRANCH_SLUG_SHORT}-${CI_COMMIT_SHORT_SHA}'
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 80
-          envFrom:
-            - configMapRef:
-                name: pastefy-env
-      imagePullSecrets:
-        - name: 'docker-registry'
-  revisionHistoryLimit: 1
+      - image: ghcr.io/thomiceli/opengist
+        name: gist
+        ports:
+        - containerPort: 6157

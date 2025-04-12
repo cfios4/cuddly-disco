@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gitea
+  name: gitea
+  namespace: cloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitea
+  template:
+    metadata:
+      labels:
+        app: gitea
+    spec:
+      containers:
+      - image: gitea/gitea
+        name: gitea
+        ports:
+        - containerPort: 3000
+        env:
+        - name: domain
+          value: git.${DOMAIN}
+        - name: SHOW_USER_EMAIL
+          value: "false"
+        - name: REVERSE_PROXY_TRUSTED_PROXIES
+          value: 127.0.0.0/8,${DOMAIN}
+        - name: EMAIL_DOMAIN_ALLOWLIST
+          value: ${DOMAIN}

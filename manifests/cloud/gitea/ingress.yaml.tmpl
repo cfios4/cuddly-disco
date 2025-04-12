@@ -2,9 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: gist
+  name: gitea
   labels:
-    app: gist
+    app: gitea
   namespace: cloud
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
@@ -14,16 +14,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - gist.git.${DOMAIN}
-    secretName: gist-tls
+    - git.${DOMAIN}
+    secretName: gitea-tls
   rules:
-  - host: gist.git.${DOMAIN}
+  - host: git.${DOMAIN}
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: gist
+            name: gitea
             port:
-              number: 6157
+              number: 3000
