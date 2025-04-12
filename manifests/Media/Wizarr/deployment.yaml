@@ -21,3 +21,10 @@ spec:
         name: wizarr
         ports:
         - containerPort: 5690
+        volumeMounts:
+        - name: wizarr-appdata
+          mountPath: /config
+      volumes:
+        - name: wizarr-appdata
+          persistentVolumeClaim:
+            claimName: wizarr-appdata

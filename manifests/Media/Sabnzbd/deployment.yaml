@@ -21,3 +21,10 @@ spec:
         name: sabnzbd
         ports:
         - containerPort: 8080
+        volumeMounts:
+        - name: sabnzbd-appdata
+          mountPath: /config
+      volumes:
+        - name: sabnzbd-appdata
+          persistentVolumeClaim:
+            claimName: sabnzbd-appdata

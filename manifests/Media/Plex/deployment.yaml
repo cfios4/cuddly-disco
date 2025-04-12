@@ -31,9 +31,14 @@ spec:
         volumeMounts:
           - name: media-store
             mountPath: /mnt/media
+          - name: plex-appdata
+            mountPath: /config
       volumes:
       - name: media-store
         nfs:
           server: nas.lan
           path: /mass-zfs-unreliable/media
           readOnly: true
+      - name: plex-appdata
+        persistentVolumeClaim:
+           claimName: plex-appdata

@@ -21,3 +21,10 @@ spec:
         name: overseerr
         ports:
         - containerPort: 5055
+        volumeMounts:
+        - name: overseerr-appdata
+          mountPath: /config
+      volumes:
+        - name: overseerr-appdata
+          persistentVolumeClaim:
+            claimName: overseerr-appdata

@@ -21,3 +21,10 @@ spec:
         name: radarr
         ports:
         - containerPort: 7878
+        volumeMounts:
+        - name: radarr-appdata
+          mountPath: /config
+      volumes:
+        - name: radarr-appdata
+          persistentVolumeClaim:
+            claimName: radarr-appdata

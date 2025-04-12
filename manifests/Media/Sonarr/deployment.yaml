@@ -21,3 +21,10 @@ spec:
         name: sonarr
         ports:
         - containerPort: 8989
+        volumeMounts:
+        - name: sonarr-appdata
+          mountPath: /config
+      volumes:
+        - name: sonarr-appdata
+          persistentVolumeClaim:
+            claimName: sonarr-appdata
