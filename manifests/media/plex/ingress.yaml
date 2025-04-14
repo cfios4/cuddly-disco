@@ -2,10 +2,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nextcloud
+  name: plex
   labels:
-    app: nextcloud
-  namespace: cloud
+    app: plex
+  namespace: media
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
     kubernetes.io/ingress.class: "nginx"
@@ -14,16 +14,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - cloud.cafio.co
-    secretName: nextcloud-tls
+    - watch.cafio.co
+    secretName: sonarr-tls
   rules:
-  - host: cloud.cafio.co
+  - host: watch.cafio.co
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: nextcloud
+            name: plex
             port:
-              number: 80
+              number: 32400

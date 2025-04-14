@@ -25,7 +25,7 @@ spec:
         - name: PLEX_CLAIM_TOKEN
           value:  #https://plex.tv/claim
         - name: PLEX_ADVERTISE_URL
-          value: watch.${DOMAIN}
+          value: watch.cafio.co
         - name: PLEX_NO_AUTH_NETWORKS
           value: 192.168.45.0/24
         volumeMounts:

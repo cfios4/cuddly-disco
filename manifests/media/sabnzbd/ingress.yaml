@@ -2,10 +2,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: vaultwarden
+  name: sabnzbd
   labels:
-    app: vaultwarden
-  namespace: cloud
+    app: sabnzbd
+  namespace: media
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
     kubernetes.io/ingress.class: "nginx"
@@ -14,16 +14,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - vault.${DOMAIN}
-    secretName: vaultwarden-tls
+    - dl.watch.cafio.co
+    secretName: sabnzbd-tls
   rules:
-  - host: vault.${DOMAIN}
+  - host: dl.watch.cafio.co
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: vaultwarden
+            name: sabnzbd
             port:
-              number: 80
+              number: 8080

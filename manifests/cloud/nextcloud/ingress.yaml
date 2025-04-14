@@ -2,10 +2,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: wizarr
+  name: nextcloud
   labels:
-    app: wizarr
-  namespace: media
+    app: nextcloud
+  namespace: cloud
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
     kubernetes.io/ingress.class: "nginx"
@@ -14,16 +14,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - invite.watch.${DOMAIN}
-    secretName: wizarr-tls
+    - cloud.cafio.co
+    secretName: nextcloud-tls
   rules:
-  - host: invite.watch.${DOMAIN}
+  - host: cloud.cafio.co
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: wizarr
+            name: nextcloud
             port:
-              number: 5690
+              number: 80

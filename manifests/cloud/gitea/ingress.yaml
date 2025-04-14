@@ -2,10 +2,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: sonarr
+  name: gitea
   labels:
-    app: sonarr
-  namespace: media
+    app: gitea
+  namespace: cloud
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
     kubernetes.io/ingress.class: "nginx"
@@ -14,16 +14,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - shows.watch.${DOMAIN}
-    secretName: sonarr-tls
+    - git.cafio.co
+    secretName: gitea-tls
   rules:
-  - host: shows.watch.${DOMAIN}
+  - host: git.cafio.co
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: sonarr
+            name: gitea
             port:
-              number: 8989
+              number: 3000

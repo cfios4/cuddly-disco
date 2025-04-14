@@ -27,7 +27,7 @@ spec:
         - name: NEXTCLOUD_ADMIN_PASSWORD
           value: changeme
         - name: NEXTCLOUD_TRUSTED_DOMAINS
-          value: cloud.${DOMAIN} nextcloud
+          value: cloud.cafio.co nextcloud
         - name: PHP_UPLOAD_LIMIT
           value: 50G
         - name: PHP_MEMORY_LIMIT

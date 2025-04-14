@@ -2,9 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: plex
+  name: sonarr
   labels:
-    app: plex
+    app: sonarr
   namespace: media
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
@@ -14,16 +14,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - watch.${DOMAIN}
+    - shows.watch.cafio.co
     secretName: sonarr-tls
   rules:
-  - host: watch.${DOMAIN}
+  - host: shows.watch.cafio.co
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: plex
+            name: sonarr
             port:
-              number: 32400
+              number: 8989

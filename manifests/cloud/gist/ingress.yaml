@@ -2,10 +2,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: sabnzbd
+  name: gist
   labels:
-    app: sabnzbd
-  namespace: media
+    app: gist
+  namespace: cloud
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
     kubernetes.io/ingress.class: "nginx"
@@ -14,16 +14,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - dl.watch.${DOMAIN}
-    secretName: sabnzbd-tls
+    - gist.git.cafio.co
+    secretName: gist-tls
   rules:
-  - host: dl.watch.${DOMAIN}
+  - host: gist.git.cafio.co
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: sabnzbd
+            name: gist
             port:
-              number: 8080
+              number: 6157

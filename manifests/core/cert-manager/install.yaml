@@ -5274,7 +5274,7 @@ spec:
    # The ACME server URL
    server: https://acme-v02.api.letsencrypt.org/directory
    # Email address used for ACME registration
-   email: ${EMAIL}
+   email: cfios@pm.me
    # Name of a secret used to store the ACME account private key
    privateKeySecretRef:
      name: letsencrypt-production
@@ -5287,13 +5287,13 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ${DOMAIN}
+  name: cafio.co
   namespace: cert-manager
 spec:
-  secretName: ${DOMAIN}-tls
+  secretName: cafio.co-tls
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - "${DOMAIN}"
-  - "*.${DOMAIN}"
+  - "cafio.co"
+  - "*.cafio.co"

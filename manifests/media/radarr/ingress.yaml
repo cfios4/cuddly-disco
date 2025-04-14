@@ -2,10 +2,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: gist
+  name: radarr
   labels:
-    app: gist
-  namespace: cloud
+    app: radarr
+  namespace: media
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
     kubernetes.io/ingress.class: "nginx"
@@ -14,16 +14,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - gist.git.${DOMAIN}
-    secretName: gist-tls
+    - movies.watch.cafio.co
+    secretName: radarr-tls
   rules:
-  - host: gist.git.${DOMAIN}
+  - host: movies.watch.cafio.co
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: gist
+            name: radarr
             port:
-              number: 6157
+              number: 7878

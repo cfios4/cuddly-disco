@@ -2,9 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: gitea
+  name: vaultwarden
   labels:
-    app: gitea
+    app: vaultwarden
   namespace: cloud
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
@@ -14,16 +14,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - git.${DOMAIN}
-    secretName: gitea-tls
+    - vault.cafio.co
+    secretName: vaultwarden-tls
   rules:
-  - host: git.${DOMAIN}
+  - host: vault.cafio.co
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: gitea
+            name: vaultwarden
             port:
-              number: 3000
+              number: 80
