@@ -17,7 +17,7 @@ spec:
         app: wizarr
     spec:
       containers:
-      - image: hotio/wizarr
+      - image: ghcr.io/wizarrrr/wizarr
         name: wizarr
         ports:
         - containerPort: 5690
