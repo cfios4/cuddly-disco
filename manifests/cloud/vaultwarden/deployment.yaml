@@ -38,7 +38,7 @@ spec:
           value: "false"
         volumeMounts:
         - name: vaultwarden-appdata
-          mountPath: /config
+          mountPath: /data
       volumes:
         - name: vaultwarden-appdata
           persistentVolumeClaim:

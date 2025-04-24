@@ -34,7 +34,7 @@ spec:
           value: 50G
         volumeMounts:
         - name: nextcloud-appdata
-          mountPath: /config
+          mountPath: /var/www/html #/data
       volumes:
         - name: nextcloud-appdata
           persistentVolumeClaim:

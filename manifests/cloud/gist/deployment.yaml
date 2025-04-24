@@ -23,7 +23,7 @@ spec:
         - containerPort: 6157
         volumeMounts:
         - name: gist-appdata
-          mountPath: /config
+          mountPath: /opengist
       volumes:
         - name: gist-appdata
           persistentVolumeClaim:

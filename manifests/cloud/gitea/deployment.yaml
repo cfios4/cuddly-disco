@@ -32,7 +32,7 @@ spec:
           value: cafio.co
         volumeMounts:
         - name: gitea-appdata
-          mountPath: /config
+          mountPath: /data
       volumes:
         - name: gitea-appdata
           persistentVolumeClaim:

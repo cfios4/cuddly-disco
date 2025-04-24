@@ -23,7 +23,7 @@ spec:
         - containerPort: 5690
         volumeMounts:
         - name: wizarr-appdata
-          mountPath: /config
+          mountPath: /data/database
       volumes:
         - name: wizarr-appdata
           persistentVolumeClaim:
