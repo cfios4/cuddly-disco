@@ -14,10 +14,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - movies.watch.lan.cafio.co
+    - movies.watch.cafio.co
     secretName: radarr-tls
   rules:
-  - host: movies.watch.lan.cafio.co
+  - host: movies.watch.cafio.co
     http:
       paths:
       - path: /

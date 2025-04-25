@@ -14,10 +14,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - shows.watch.lan.cafio.co
+    - shows.watch.cafio.co
     secretName: sonarr-tls
   rules:
-  - host: shows.watch.lan.cafio.co
+  - host: shows.watch.cafio.co
     http:
       paths:
       - path: /

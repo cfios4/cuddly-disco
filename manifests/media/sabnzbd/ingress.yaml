@@ -14,10 +14,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - dl.watch.lan.cafio.co
+    - dl.watch.cafio.co
     secretName: sabnzbd-tls
   rules:
-  - host: dl.watch.lan.cafio.co
+  - host: dl.watch.cafio.co
     http:
       paths:
       - path: /
