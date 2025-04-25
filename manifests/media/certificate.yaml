@@ -10,4 +10,9 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-  - "*.watch.cafio.co"
+  - "watch.cafio.co"
+  - "invite.watch.cafio.co"
+  - "request.watch.cafio.co"
+  - "movies.watch.cafio.co"
+  - "shows.watch.cafio.co"
+  - "dl.watch.cafio.co"
