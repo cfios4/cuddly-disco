@@ -15,7 +15,7 @@ spec:
   tls:
   - hosts:
     - request.watch.cafio.co
-    secretName: overseerr-tls
+    secretName: cafio.co-tls
   rules:
   - host: request.watch.cafio.co
     http:
