@@ -5294,6 +5294,7 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
+  commonName: "*.cafio.co"
   dnsNames:
   - "cafio.co"
   - "*.cafio.co"
