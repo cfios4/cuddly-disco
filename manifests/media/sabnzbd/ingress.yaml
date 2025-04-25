@@ -15,7 +15,7 @@ spec:
   tls:
   - hosts:
     - dl.watch.cafio.co
-    secretName: sabnzbd-tls
+    secretName: cafio.co-tls
   rules:
   - host: dl.watch.cafio.co
     http:

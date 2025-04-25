@@ -15,7 +15,7 @@ spec:
   tls:
   - hosts:
     - shows.watch.cafio.co
-    secretName: sonarr-tls
+    secretName: cafio.co-tls
   rules:
   - host: shows.watch.cafio.co
     http:

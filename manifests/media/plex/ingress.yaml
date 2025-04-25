@@ -15,7 +15,7 @@ spec:
   tls:
   - hosts:
     - watch.cafio.co
-    secretName: plex-tls
+    secretName: cafio.co-tls
   rules:
   - host: watch.cafio.co
     http:
