@@ -5283,18 +5283,3 @@ spec:
    - http01:
        ingress:
          class:  nginx
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: cafio.co
-  namespace: cert-manager
-spec:
-  secretName: cafio.co-tls
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  commonName: "*.cafio.co"
-  dnsNames:
-  - "cafio.co"
-  - "*.cafio.co"
