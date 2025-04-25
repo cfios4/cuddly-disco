@@ -50,7 +50,7 @@ Stack/
     │   ├── plex/
     │   └── usenet/
     └── cloud/
-        ├── nextcloud
+        ├── nextcloud/
         ├── vault/
         ├── git/
         ├── gist/
@@ -83,11 +83,12 @@ BUT I could use Kustomize as a base and unique patches for services off of the b
         - Seperate backup policies
       - Longhorn S3 backup to BackBlaze
       - Longhorn NFS backup to UNAS
-- [ ] Ingress for local only services
+- [x] Ingress for local only services
     - Public DNS but only accessible from internal?
+      - `<hostname>.lan.<domain>`
 - [ ] ~~RK1 hardware transcoding for Plex~~
 - [ ] KubeVirt
-- [ ] Agnosticize 
+- [x] Agnosticize 
 - [ ] Rebuild using repo
 - [ ] Automate (GitOps)
 - [ ] Migrate

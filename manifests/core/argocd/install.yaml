@@ -26164,50 +26164,73 @@ spec:
   policyTypes:
   - Ingress
 ---
-project: core
-source:
-  repoURL: https://git.cafio.co/casey/talos.git
-  path: manifests/core
-  targetRevision: HEAD
-  directory:
-    recurse: true
-    jsonnet: {}
-destination:
-  server: https://kubernetes.default.svc
-  namespace: core
-syncPolicy:
-  automated: {}
-  syncOptions:
-    - CreateNamespace=true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: core
+  project: core
+  source:
+    repoURL: https://git.cafio.co/casey/talos.git
+    path: manifests/core
+    targetRevision: HEAD
+    directory:
+      recurse: true
+      jsonnet: {}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: core
+  syncPolicy:
+    automated: 
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
 ---
-project: cloud
-source:
-  repoURL: https://git.cafio.co/casey/talos.git
-  path: manifests/cloud
-  targetRevision: HEAD
-  directory:
-    recurse: true
-    jsonnet: {}
-destination:
-  server: https://kubernetes.default.svc
-  namespace: cloud
-syncPolicy:
-  automated: {}
-  syncOptions:
-    - CreateNamespace=true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: cloud
+  project: cloud
+  source:
+    repoURL: https://git.cafio.co/casey/talos.git
+    path: manifests/cloud
+    targetRevision: HEAD
+    directory:
+      recurse: true
+      jsonnet: {}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cloud
+  syncPolicy:
+    automated: 
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
 ---
-project: media
-source:
-  repoURL: https://git.cafio.co/casey/talos.git
-  path: manifests/media
-  targetRevision: HEAD
-  directory:
-    recurse: true
-    jsonnet: {}
-destination:
-  server: https://kubernetes.default.svc
-  namespace: media
-syncPolicy:
-  automated: {}
-  syncOptions:
-    - CreateNamespace=true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: media
+spec:
+  project: media
+  source:
+    repoURL: https://git.cafio.co/casey/talos.git
+    path: manifests/media
+    targetRevision: HEAD
+    directory:
+      recurse: true
+      jsonnet:
+        extVars:
+          - name: PLEX_CLAIM_TOKEN
+            value:  #https://plex.tv/claim
+            code: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: media
+  syncPolicy:
+    automated: 
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
