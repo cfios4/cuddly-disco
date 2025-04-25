@@ -23,7 +23,7 @@ spec:
         - containerPort: 8989
         volumeMounts:
         - name: media-store
-          mountPath: /mnt/media
+          mountPath: /media
         - name: sonarr-appdata
           mountPath: /config
       volumes:
@@ -31,7 +31,6 @@ spec:
           nfs:
             server: nas.lan
             path: /mass-zfs-unreliable/media
-            readOnly: true
         - name: sonarr-appdata
           persistentVolumeClaim:
             claimName: sonarr-appdata
