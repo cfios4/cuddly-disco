@@ -9,13 +9,13 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsecrypt-production"
     kubernetes.io/ingress.class: "nginx"
-    #nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
     - invite.watch.cafio.co
-    secretName: watch.cafio.co-tls
+    secretName: cafio.co-tls
   rules:
   - host: invite.watch.cafio.co
     http:

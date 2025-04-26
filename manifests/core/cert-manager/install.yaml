@@ -5280,6 +5280,23 @@ spec:
      name: letsencrypt-production
    # Enable the HTTP-01 challenge provider
    solvers:
-   - http01:
-       ingress:
-         class: nginx
+   - dns01:
+       cloudflare:
+         email: cfios@pm.me
+         apiTokenSecretRef:
+           name: cloudflare-api-token
+           key: api-token
+# ---
+# apiVersion: cert-manager.io/v1
+# kind: Certificate
+# metadata:
+#   name: cafio.co
+#   namespace: cert-manager
+# spec:
+#   secretName: cafio.co-tls
+#   issuerRef:
+#     name: letsencrypt-production
+#     kind: ClusterIssuer
+#   dnsNames:
+#   - "cafio.co"
+#   - "*.cafio.co"
