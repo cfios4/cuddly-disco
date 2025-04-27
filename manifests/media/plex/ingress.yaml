@@ -10,6 +10,10 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt-production"
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    flame.pawelmalak/type: application
+    flame.pawelmalak/name: Plex
+    flame.pawelmalak/url: https://watch.cafio.co/
+    flame.pawelmalak/icon: plex
 spec:
   ingressClassName: nginx
   tls:
