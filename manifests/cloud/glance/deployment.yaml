@@ -5,7 +5,7 @@ metadata:
   labels:
     app: radarr
   name: glance
-  namespace: media
+  namespace: cloud
 spec:
   replicas: 1
   selector:
