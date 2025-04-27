@@ -5416,7 +5416,7 @@ spec:
     kind: ClusterIssuer
   secretTemplate:
     annotations:
-      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true" # Reflect secrets into namespaces
       reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "cloud,media"  # Control destination namespaces
       reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true" # Auto create reflection for matching namespaces
       reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "cloud,media" # Control auto-reflection namespaces
