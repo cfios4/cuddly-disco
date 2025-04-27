@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: radarr
+  name: glance
+  namespace: media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: glance
+  template:
+    metadata:
+      labels:
+        app: glance
+    spec:
+      containers:
+      - image: glanceapp/glance
+        name: glance
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: glance-appdata
+          mountPath: /app/config
+      volumes:
+        - name: glance-appdata
+          persistentVolumeClaim:
+            claimName: glance-appdata
