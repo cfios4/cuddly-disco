@@ -20,7 +20,7 @@ spec:
   tls:
   - hosts:
     - movies.watch.cafio.co
-    secretName: cafio.co-tls
+    secretName: watch.cafio.co-tls
   rules:
   - host: movies.watch.cafio.co
     http:
