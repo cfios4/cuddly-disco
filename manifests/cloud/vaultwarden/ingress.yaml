@@ -10,6 +10,10 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt-production"
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    flame.pawelmalak/type: application
+    flame.pawelmalak/name: Vault
+    flame.pawelmalak/url: https://vault.cafio.co/
+    flame.pawelmalak/icon: lock-outline
 spec:
   ingressClassName: nginx
   tls:

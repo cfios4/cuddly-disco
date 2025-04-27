@@ -10,6 +10,10 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt-production"
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    flame.pawelmalak/type: application
+    flame.pawelmalak/name: Gist
+    flame.pawelmalak/url: https://gist.git.cafio.co/
+    flame.pawelmalak/icon: content-paste
 spec:
   ingressClassName: nginx
   tls:
