@@ -33,7 +33,7 @@ spec:
         - name: WEB_VAULT_ENABLED
           value: "true"
         - name: SIGNUPS_ALLOWED
-          value: "true" # change to false once account is created
+          value: "false" # change to true to create first account
         - name: SIGNUPS_VERIFY
           value: "false"
         volumeMounts:
