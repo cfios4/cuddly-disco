@@ -21,15 +21,15 @@ spec:
         name: flame
         ports:
         - containerPort: 5005
-        volumeMounts:
-        - name: flame-appdata
-          mountPath: /app/data
         env:
         - name: PASSWORD
           valueFrom:
-            - secretRef:
+            - secretKeyRef:
                 name: flame-secret
                 key: PASSWORD
+        volumeMounts:
+        - name: flame-appdata
+          mountPath: /app/data
       volumes:
         - name: flame-appdata
           persistentVolumeClaim:
