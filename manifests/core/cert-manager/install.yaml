@@ -5423,5 +5423,3 @@ spec:
   dnsNames:
   - "cafio.co"
   - "*.cafio.co"
-  - "*.git.cafio.co"
-  - "*.watch.cafio.co"

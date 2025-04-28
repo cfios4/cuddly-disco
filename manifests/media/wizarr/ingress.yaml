@@ -19,7 +19,7 @@ spec:
   tls:
   - hosts:
     - invite.watch.cafio.co
-    secretName: watch.cafio.co-tls
+    secretName: invite.watch.cafio.co-tls
   rules:
   - host: invite.watch.cafio.co
     http:
