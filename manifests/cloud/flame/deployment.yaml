@@ -24,9 +24,9 @@ spec:
         env:
         - name: PASSWORD
           valueFrom:
-            - secretKeyRef:
-                name: flame-secret
-                key: PASSWORD
+            secretKeyRef:
+              name: flame-secret
+              key: PASSWORD
         volumeMounts:
         - name: flame-appdata
           mountPath: /app/data
