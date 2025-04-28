@@ -17,7 +17,7 @@ spec:
         app: flame
     spec:
       containers:
-      - image: pawelmalak/flame
+      - image: pawelmalak/flame:multiarch
         name: flame
         ports:
         - containerPort: 5005
