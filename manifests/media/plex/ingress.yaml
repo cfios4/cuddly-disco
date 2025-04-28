@@ -12,7 +12,7 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     flame.pawelmalak/type: application
     flame.pawelmalak/name: Plex
-    flame.pawelmalak/url: https://watch.cafio.co/
+    flame.pawelmalak/url: https://watch.cafio.co/web
     flame.pawelmalak/icon: plex
 spec:
   ingressClassName: nginx
