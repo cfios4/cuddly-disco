@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: <app-name>
+  name: <app-name>
+  namespace: media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: <app-name>
+  template:
+    metadata:
+      labels:
+        app: <app-name>
+    spec:
+      containers:
+      - image: <image-name>
+        name: <app-name>
+        ports:
+        - containerPort: 0000
+        volumeMounts:
+        - name: <app-name>-appdata
+          mountPath: /path/to/config/in/container
+      volumes:
+        - name: <app-name>-appdata
+          persistentVolumeClaim:
+            claimName: <app-name>-appdata

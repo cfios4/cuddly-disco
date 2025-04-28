@@ -1,0 +1,34 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: <app-name>
+  labels:
+    app: <app-name>
+  namespace: <app-namespace>
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # nginx.ingress.kubernetes.io/whitelist-source-range: "<whitelist-network>"
+    flame.pawelmalak/type: application
+    flame.pawelmalak/name: <app-name>
+    flame.pawelmalak/url: <app-ingress-endpoint>
+    flame.pawelmalak/icon: <app-icon>
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - <app-url-endpoint>
+    secretName: <app-url-endpoint>-tls
+  rules:
+  - host: <app-url-endpoint>
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: <app-name>
+            port:
+              number: 0000
