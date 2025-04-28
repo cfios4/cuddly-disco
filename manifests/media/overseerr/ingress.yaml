@@ -13,7 +13,7 @@ metadata:
     flame.pawelmalak/type: application
     flame.pawelmalak/name: Requests
     flame.pawelmalak/url: https://request.watch.cafio.co/
-    flame.pawelmalak/icon: magnifying-glass
+    flame.pawelmalak/icon: magnify
 spec:
   ingressClassName: nginx
   tls:
