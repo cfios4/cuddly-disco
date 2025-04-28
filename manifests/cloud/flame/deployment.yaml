@@ -16,6 +16,7 @@ spec:
       labels:
         app: flame
     spec:
+      serviceAccountName: flame
       containers:
       - image: pawelmalak/flame:multiarch
         name: flame
