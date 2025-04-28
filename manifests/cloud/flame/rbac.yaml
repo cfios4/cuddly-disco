@@ -20,7 +20,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: flame
-  namespace: default
+  namespace: cloud
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
