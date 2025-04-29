@@ -19,7 +19,7 @@ spec:
   tls:
   - hosts:
     - cloud.cafio.co
-    secretName: cafio.co-tls
+    secretName: cloud.cafio.co-tls
   rules:
   - host: cloud.cafio.co
     http:

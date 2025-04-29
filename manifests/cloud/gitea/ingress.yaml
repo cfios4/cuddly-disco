@@ -19,7 +19,7 @@ spec:
   tls:
   - hosts:
     - git.cafio.co
-    secretName: cafio.co-tls
+    secretName: git.cafio.co-tls
   rules:
   - host: git.cafio.co
     http:
