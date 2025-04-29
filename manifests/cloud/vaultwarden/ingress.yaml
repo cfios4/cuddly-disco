@@ -19,7 +19,7 @@ spec:
   tls:
   - hosts:
     - vault.cafio.co
-    secretName: vault.cafio.co-tls
+    secretName: cafio.co-tls
   rules:
   - host: vault.cafio.co
     http:
