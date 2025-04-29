@@ -22,7 +22,7 @@ spec:
         ports:
         - containerPort: 3000
         env:
-        - name: domain
+        - name: DOMAIN
           value: git.cafio.co
         - name: SHOW_USER_EMAIL
           value: "false"
@@ -30,6 +30,10 @@ spec:
           value: 127.0.0.0/8,cafio.co
         - name: EMAIL_DOMAIN_ALLOWLIST
           value: cafio.co
+        - name: ENABLE_OPENID_SIGNIN
+          value: "false"
+        - name: ENABLE_OPENID_SIGNUP
+          value: "false"
         volumeMounts:
         - name: gitea-appdata
           mountPath: /data
